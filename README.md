@@ -54,7 +54,7 @@ app.get("/",function(req,res){
 文件上传此处实用的multer插件
 关于multer的相关配置参考/config/upload.js
 首先定义上传文件的请求接口
-```javascrip
+```javascript
 app.post("/upload/file", uploadConfig.single('file')); //文件上传  file为表单内input的name
 //做到这里其实已经实现文件上传的功能了
 //剩余的工作就是将存储的文件相关的信息存入数据库，便于后期使用
