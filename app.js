@@ -1,6 +1,7 @@
 /**
  * Created by zhaoxuhui on 2017/7/17.
  */
+//加载模块
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -10,10 +11,10 @@ const port = 18080;
 const colors = require("./config/colors");
 
 //Middleware中间件
-app.use(express.static("static")); //Express 托管静态文,/css/style.css
-app.set("views", "./views"); //设置根目录
-app.set("view engine", "ejs"); //设置默认模板
-app.locals.moment = require("moment"); //时间格式化插件
+app.use(express.static("static")); //托管静态文
+app.set("views", "./views"); //设置页面模版根目录
+app.set("view engine", "ejs"); //设置默认模板引擎
+app.locals.moment = require("moment");//时间格式化插件
 app.use(bodyParser.json()); //body-parser
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -26,19 +27,23 @@ const uploadConfig = require("./config/upload");
 const pagination = require("./controller/pagination");
 //创建数据库
 const Upload = require("./mongoose/upload");
-//upload service
+//提供的sservice方法
 const uplaodService = require("./service/upload");
-//首页
+//路由配置  请求首页
 app.get("/",function(req,res){
+    //限查出数据库内所有的数据
     Upload.find({},function(err,files){
         if(err){
             console.log(err);
             return ;
         }
+        //按创建时间排序
         files = files
             .sort("createAt")
             .reverse();
-        var result = pagination(req.query,files);//分页
+        //分页 调用分页插件
+        var result = pagination(req.query,files);
+        //响应对应的页面
         res.render("upload",{
             result:result
         });

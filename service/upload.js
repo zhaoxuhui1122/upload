@@ -4,6 +4,8 @@
 const Uplaod = require("../mongoose/upload");
 
 module.exports = {
+    //文件上传已完成，此处为将文件的大小、存储路径等基本信息存储到数据库内
+    //新增文件
     add : function(req,res){
         var file = req.file ;
         var fileObj =
@@ -25,6 +27,7 @@ module.exports = {
             res.redirect("/");
         })
     },
+    //删除文件
     remove: function(req,res){
         var id = req.body.id;
         Uplaod.remove({_id:id},function(err){

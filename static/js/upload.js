@@ -2,13 +2,14 @@
  * Created by zhaoxuhui on 2017/7/17.
  */
 $(function() {
+    //判定一下，如果问选定文件，不上传
     $(".submit").click(function(){
         if($(this).attr("type")=="button"){
             alert("请选择要上传的文件！")
         }
     })
+    //选定文件后
     $("#file").change(function() {
-        //判断是否是图片类型
         var file = this.files[0];
         if(file){
             $(".submit").attr("type","submit");
