@@ -4,8 +4,8 @@
  */
 
 const mongoose = require("mongoose");
-//定时模式 schemas
-//schemas 以键值:值类型的模式定义
+//定义模式 schemas
+//schemas 所需存储的字段以 键值:值类型的模式定义
 var uploadSchemas = new mongoose.Schema({
     name: String,
     url: String,

@@ -51,6 +51,7 @@ app.get("/", function(req, res) {
 })
 
 //接口
+//【重要】上传文件的表单上需定义  enctype="multipart/form-data"
 app.post("/upload/file", uploadConfig.single('file'), uplaodService.add); //文件上传
 app.post("/remove/file", uploadConfig.single('file'), uplaodService.remove); //文件删除
 
