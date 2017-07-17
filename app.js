@@ -14,9 +14,9 @@ const colors = require("./config/colors");
 app.use(express.static("static")); //托管静态文
 app.set("views", "./views"); //设置页面模版根目录
 app.set("view engine", "ejs"); //设置默认模板引擎
-app.locals.moment = require("moment");//时间格式化插件
+app.locals.moment = require("moment"); //时间格式化插件
 app.use(bodyParser.json()); //body-parser
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 //创建数据库连接
@@ -30,22 +30,22 @@ const Upload = require("./mongoose/upload");
 //提供的sservice方法
 const uplaodService = require("./service/upload");
 //路由配置  请求首页
-app.get("/",function(req,res){
+app.get("/", function(req, res) {
     //限查出数据库内所有的数据
-    Upload.find({},function(err,files){
-        if(err){
+    Upload.find({}, function(err, files) {
+        if (err) {
             console.log(err);
-            return ;
+            return;
         }
         //按创建时间排序
         files = files
             .sort("createAt")
             .reverse();
         //分页 调用分页插件
-        var result = pagination(req.query,files);
+        var result = pagination(req.query, files);
         //响应对应的页面
-        res.render("upload",{
-            result:result
+        res.render("upload", {
+            result: result
         });
     })
 })
@@ -55,6 +55,6 @@ app.post("/upload/file", uploadConfig.single('file'), uplaodService.add); //文�
 app.post("/remove/file", uploadConfig.single('file'), uplaodService.remove); //文件删除
 
 //server
-app.listen(port,function () {
-    console.log(colors.success("server is start !",port,new Date().toLocaleString()));
+app.listen(port, function() {
+    console.log(colors.success("server is start !", port, new Date().toLocaleString()));
 });

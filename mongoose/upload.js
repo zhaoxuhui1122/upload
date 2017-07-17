@@ -8,9 +8,9 @@ const mongoose = require("mongoose");
 //schemas 以键值:值类型的模式定义
 var uploadSchemas = new mongoose.Schema({
     name: String,
-    url :String,
-    type : String,
-    size : String,
+    url: String,
+    type: String,
+    size: String,
     createAt: Date
 });
 //定义模型 model

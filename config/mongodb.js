@@ -13,10 +13,10 @@ const colors = require("../config/colors");
 module.exports = function() {
     //地址1
     //百度云服务器上
-    if(process.env.SERVER_SOFTWARE == 'bae/3.0') {
-        var user = "341b3801489b4b279632885bd13b0e**";//Access Key ID
-        var pwd = "1a882272b2d14d1fbc844b5583c8379a";//Secret Access Key
-        var database = "YRyzINGQtfFUZthtOJ**";//数据库名称
+    if (process.env.SERVER_SOFTWARE == 'bae/3.0') {
+        var user = "341b3801489b4b279632885bd13b0e**"; //Access Key ID
+        var pwd = "1a882272b2d14d1fbc844b5583c8379a"; //Secret Access Key
+        var database = "YRyzINGQtfFUZthtOJ**"; //数据库名称
         var url = 'mongodb://' + user + ':' + pwd + '@mongo.duapp.com:8908/' + database + '';
         //连接数据库
         mongoose.connect(url, {

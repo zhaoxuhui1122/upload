@@ -11,7 +11,7 @@
  * @param hasNext {boolean} 是否有下一页
  * @param data {object} 数据列表
  */
-module.exports = function(params,list) {
+module.exports = function(params, list) {
     var pageSize = parseInt(params.pageSize) || 12;
     var pageNum = parseInt(params.pageNum) || 1;
     var total = list.length;
@@ -19,22 +19,22 @@ module.exports = function(params,list) {
     var hasNext = true;
     var data = [];
     //分割list
-    for(var i = 0, len = list.length; i < len; i += pageSize) {
+    for (var i = 0, len = list.length; i < len; i += pageSize) {
         data.push(list.slice(i, i + pageSize));
     }
     var totalPageNum = data.length;
     //判断是否有上／下一页
-    if(pageNum <= 1) {
+    if (pageNum <= 1) {
         pageNum = 1;
         hasPrev = false;
         hasNext = true;
     }
-    if(pageNum >= totalPageNum) {
+    if (pageNum >= totalPageNum) {
         pageNum = totalPageNum;
         hasPrev = true;
         hasNext = false;
     }
-    if(totalPageNum == 1){
+    if (totalPageNum == 1) {
         hasPrev = false;
         hasNext = false;
     }
@@ -44,7 +44,7 @@ module.exports = function(params,list) {
         totalPageNum: totalPageNum,
         hasPrev: hasPrev,
         hasNext: hasNext,
-        items: data[pageNum-1]
+        items: data[pageNum - 1]
     }
     return result;
 }
