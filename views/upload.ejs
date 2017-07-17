@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>文件上传</title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <script src="/js/libs/jquery.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <!--content-->
+    <div class="content">
+        <!--nav 导航-->
+        <!--  -->
+        <div class="main">
+            <div class="page">
+                <div class="head">
+                    <h2>文件上传</h2>
+                    <!-- 必须加enctype属性 -->
+                    <form class="upload" action="/upload/file" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file" id="file" value="选择文件" />
+                        <button type="button" class="btn submit">上传</button>
+                    </form>
+                </div>
+                <div class="list">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>名称</th>
+                            <th>路径</th>
+                            <th>大小</th>
+                            <th>日期</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% if (result.total >0) { %>
+                        <% result.items.forEach(function(file,index){ %>
+                        <tr>
+                            <td>
+                                <%= (index+1) %>
+                            </td>
+                            <td>
+                                <%= file.name %>
+                            </td>
+                            <td>
+                                <%= file.url %>
+                            </td>
+                            <td>
+                                <%= file.size %>
+                            </td>
+                            <td>
+                                <%= moment(file.createAt).format('YYYY-MM-DD HH:mm:ss') %>
+                            </td>
+                            <td>
+                                <button class="btn delete" id="<%= file._id%>">删除</button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <ul>
+                        <% if(result.totalPageNum >1){
+                        %>
+                        <input type="hidden" name="total" id="total" value="<%= result.total%>">
+                        <input type="hidden" name="pageNum" id="pageNum" value="<%= result.pageNum%>">
+                        <input type="hidden" name="totalPageNum" id="totalPageNum" value="<%= result.totalPageNum%>">
+                        <input type="hidden" name="hasPrev" id="hasPrev" value="<%= result.hasPrev%>">
+                        <input type="hidden" name="hasNext" id="hasNext" value="<%= result.hasNext%>">
+                        <%
+                        }%>
+                    </ul>
+                    <form action="/img/list" method="get">
+                        <input type="hidden" name="pageSize" value="12"/>
+                        <input type="hidden" name="pageNum" class="pageNum" value=""/>
+                    </form>
+                </div>
+                <!-- 分页结束 -->
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/common.js"></script>
+<script src="/js/upload.js"></script>
+</body>
+
+</html>
