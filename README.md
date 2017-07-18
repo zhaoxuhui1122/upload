@@ -79,7 +79,7 @@ var Upload = mongoose.model("Upload", uploadSchemas);
 module.exports = Upload;
 ```
 - 设计文件存储和删除功能
-[/service/uplaod.js](./service/uplaod.js)
+[/service/upload.js](./service/upload.js)
 
 - 定义请求接口
 ```javascript
