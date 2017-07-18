@@ -121,6 +121,23 @@ app.get("/", function(req, res) {
 ## 关于mongodb安装及管理
 此处不对mongodb的安装做具体的介绍，安装过程中会碰到各种问题，需要自己去摸索试探
 mongodb桌面管理工具个人使用的是Robomongo
+## 关于mongodb配置
+配置提供了测试数据库和线上数据库两种配置方案，可根据不同的环境自动切换。
+- 原理为判定但前环境是否为百度云的bae基础版引擎，如果是的话，将数据库连接到线上数据库，线上数据库在扩展服务里自己开，1G免费空间，所需要的参数都有说明。
+- 关于数据库配置信息，关键在于【数据库连接地址】，线上和线下地址配置分别如下
 
-
+```javascript
+//数据库线上连接地址
+ var user = "341b3801489b4b279632885bd13b0e**"; //Access Key ID
+ var pwd = "1a882272b2d14d1fbc844b5583c8379a"; //Secret Access Key
+ var database = "YRyzINGQtfFUZthtOJ**"; //数据库名称
+ var url = 'mongodb://' + user + ':' + pwd + '@mongo.duapp.com:8908/' + database + '';
+//这几个参数是相当容易获取的，直接输入到对应位置即可
+//线上数据库会出现自动断开连接的情况，配置中已解决该问题
+```
+```javascript
+//本地测试地址
+var url = "mongodb://127.0.0.1:27017/upload";
+//uplaod即数据库名称，自己设定
+```
 
