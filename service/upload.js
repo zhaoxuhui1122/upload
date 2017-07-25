@@ -2,7 +2,7 @@
  * Created by zhaoxuhui on 2017/7/17.
  */
 const Uplaod = require("../mongoose/upload");
-
+const fs = require("fs");
 module.exports = {
     //文件上传已完成，此处为将文件的大小、存储路径等基本信息存储到数据库内
     //新增文件
@@ -21,7 +21,7 @@ module.exports = {
         file.save(function(err, files) {
             if (err) {
                 console.log(err);
-                return false;
+                return;
             }
             res.redirect("/");
         })
@@ -29,13 +29,30 @@ module.exports = {
     //删除文件
     remove: function(req, res) {
         var id = req.body.id;
-        Uplaod.remove({ _id: id }, function(err) {
-            if (err) {
+        var url;//需要删除文件在文件夹内的路径
+        Uplaod.find({_id:id},function(err,file){
+            if(err){
                 console.log(err);
-                res.json({ result: "fail" });
-            } else {
-                res.json({ result: "success" });
+                return ;
             }
+            url = file.url ;
+        }).then(function(){
+            Uplaod.remove({ _id: id }, function(err) {
+                if (err) {
+                    console.log(err);
+                    res.json({ result: "数据库信息删除失败" });
+                } else {//数据库删除成功后将文件夹内的文件也删除掉
+                    fs.unlink("static"+url,function(error){
+                        if(error){
+                            console.log(error);
+                            res.json({ result: "文件夹内文件删除失败" });
+                            return ;
+                        }
+                        res.json({ result: "success" });
+                    })
+                }
+            })
         })
+
     }
 }
