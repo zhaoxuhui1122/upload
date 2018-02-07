@@ -5,7 +5,7 @@
 - MongoDB: `3.2.10`
 - Express: `^4.15.3`
 ## 简介
-1.框架选用的为express 4.*版本，文件上传选用了multer插件，数据库选用mongodb非关系型数据库，页面模版使用ejs模版，分页插件为我自己编写的一个插件。
+1.框架选用的为express 4.*版本，文件上传选用了multer插件，数据库选用mongodb非关系型数据库，页面模版使用ejs模版。
 
 2.会详细介绍上传控件multer的配置项，mongodb数据库线上和本地连接，mongodb创建schemas和model的方法和如何调用。
 
@@ -88,32 +88,6 @@ app.post("/upload/file", uploadConfig.single('file'), uplaodService.add); //文�
 app.post("/remove/file", uploadConfig.single('file'), uplaodService.remove); //文件删除
 ```
 至此，文件上传和删除的接口已经完成
-
-## 5.分页功能的实现
-后台分页插件为[pagination.js](./controller/pagination.js),可根据自己的需求扩展
-页面路由配置项
-```javascript
-const pagination = require("./controller/pagination");
-app.get("/", function(req, res) {
-    //限查出数据库内所有的数据
-    Upload.find({}, function(err, files) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        //按创建时间排序
-        files = files
-            .sort("createAt")
-            .reverse();
-        //分页 调用分页插件
-        var result = pagination(req.query, files);
-        //响应对应的页面
-        res.render("upload", {
-            result: result
-        });
-    })
-})
-```
 页面分页按钮组扩展插件在conmon.js内
 关于页面数据绑定可参考网上ejs的具体用法，这里只用到了简单的判定和循环列表
 ## 【注意】 上传文件的form表单需要定义属性 enctype="multipart/form-data
